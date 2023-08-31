@@ -1,0 +1,5 @@
+// Add your dependencies here
+
+dependencies {
+    implementation("com.falsepattern:falsepatternlib-mc1.7.10:0.12.1:dev")
+}

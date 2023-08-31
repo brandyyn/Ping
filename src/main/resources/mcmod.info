@@ -1,15 +1,16 @@
 [
 {
-  "modid": "Ping",
-  "name": "Ping",
-  "description": "Inspired by Portal 2, this mod brings the Ping tool into Minecraft.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "http://minecraft.curseforge.com/projects/ping",
+  "modid": "${modId}",
+  "name": "${modName}",
+  "description": "Inspired by Portal 2, this mod brings the Ping tool into 1.7.10.",
+  "version": "${modVersion}",
+  "mcversion": "${minecraftVersion}",
+  "url": "https://github.com/GTMEGA/Ping",
   "updateUrl": "",
   "authorList": [
     "dmillerw",
-	"Girafi"
+	"Girafi",
+    "FalsePattern"
   ],
   "credits": "",
   "logoFile": "assets/ping/logo.png",
@@ -17,7 +18,7 @@
   ],
   "parent":"",
   "dependencies": [
-    "mod_MinecraftForge"
+
   ]
 }
 ]
