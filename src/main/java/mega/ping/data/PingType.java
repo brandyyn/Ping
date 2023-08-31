@@ -11,12 +11,14 @@ public enum PingType {
     MINE,
     GOTO;
 
+
+    public final String langKey = "ping.action." + name().toLowerCase();
     public final float minU;
     public final float minV;
     public final float maxU;
     public final float maxV;
 
-    private PingType() {
+    PingType() {
         int x = 32 * ordinal();
         int y = 0;
         float f = (float) (0.009999999776482582D / (double) 256);

@@ -10,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Mouse;
@@ -91,10 +92,11 @@ public class RenderHandler {
             boolean mouseIn = GuiPingSelect.isHoveringOn(mouseX, mouseY, centerX, centerY, i, numOfItems, false);
 
             if (mouseIn) {
+                String localized = I18n.format(type.langKey);
                 GL11.glPushMatrix();
                 GL11.glColor4f(1, 1, 1, 1);
-                mc.fontRenderer.drawString(type.toString(),
-                                           (int) (drawX - mc.fontRenderer.getStringWidth(type.toString()) / 2),
+                mc.fontRenderer.drawString(localized,
+                                           (int) (drawX - mc.fontRenderer.getStringWidth(localized) / 2),
                                            (int) (drawY + max),
                                            0xFFFFFF);
                 GL11.glPopMatrix();

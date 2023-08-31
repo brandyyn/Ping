@@ -16,7 +16,7 @@ import org.lwjgl.input.Mouse;
  */
 public class KeyHandler {
 
-    public static final KeyBinding KEY_BINDING = new KeyBinding("key.ping", Keyboard.KEY_F, "key.categories.misc");
+    public static final KeyBinding KEY_BINDING = new KeyBinding("ping.key", Keyboard.KEY_F, "key.categories.misc");
 
     public static void register() {
         ClientRegistry.registerKeyBinding(KEY_BINDING);

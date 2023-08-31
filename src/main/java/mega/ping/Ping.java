@@ -6,6 +6,8 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
+import mega.ping.client.PingConfig;
 import mega.ping.proxy.CommonProxy;
 
 /**
@@ -19,6 +21,10 @@ import mega.ping.proxy.CommonProxy;
 public class Ping {
     @SidedProxy(serverSide = Tags.GROUPNAME + ".proxy.CommonProxy", clientSide = Tags.GROUPNAME + ".proxy.ClientProxy")
     public static CommonProxy proxy;
+
+    static {
+        PingConfig.poke();
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
