@@ -1,8 +1,14 @@
 {
-    "bloop": {
+    "appear": {
         "category": "neutral",
         "sounds": [
-            "bloop"
+            "appear"
+        ]
+    },
+    "disappear": {
+        "category": "neutral",
+        "sounds": [
+            "disappear"
         ]
     }
 }

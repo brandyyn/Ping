@@ -17,7 +17,8 @@ import mega.ping.proxy.CommonProxy;
      name = Tags.MODNAME,
      version = Tags.VERSION,
      acceptedMinecraftVersions="[1.7.10]",
-     guiFactory = Tags.GROUPNAME + ".client.gui.config.PingGuiFactory")
+     guiFactory = Tags.GROUPNAME + ".client.gui.config.PingGuiFactory",
+     dependencies = "required-after:falsepatternlib@[0.12,);")
 public class Ping {
     @SidedProxy(serverSide = Tags.GROUPNAME + ".proxy.CommonProxy", clientSide = Tags.GROUPNAME + ".proxy.ClientProxy")
     public static CommonProxy proxy;

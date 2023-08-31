@@ -40,6 +40,9 @@ public class PingHandler {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation("ping:textures/ping.png");
 
+    private static final ResourceLocation APPEAR_SOUND = new ResourceLocation("ping:appear");
+    private static final ResourceLocation DISAPPEAR_SOUND = new ResourceLocation("ping:disappear");
+
     public static void register() {
         FMLCommonHandler.instance().bus().register(INSTANCE);
         MinecraftForge.EVENT_BUS.register(INSTANCE);
@@ -53,7 +56,7 @@ public class PingHandler {
         Minecraft mc = Minecraft.getMinecraft();
         if (mc.thePlayer.getDistance(packet.ping.x, packet.ping.y, packet.ping.z) <= PingConfig.General.pingAcceptDistance) {
             if (PingConfig.General.sound) {
-                mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("ping:bloop"), 1.0F));
+                mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(APPEAR_SOUND, 1.0F));
             }
             packet.ping.timer = PingConfig.General.pingDuration;
             activePings.add(packet.ping);
@@ -184,6 +187,10 @@ public class PingHandler {
             pingWrapper.timer--;
 
             if (pingWrapper.timer <= 0) {
+                if (PingConfig.General.sound) {
+                    Minecraft mc = Minecraft.getMinecraft();
+                    mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(DISAPPEAR_SOUND, 1.0F));
+                }
                 iterator.remove();
             }
         }
