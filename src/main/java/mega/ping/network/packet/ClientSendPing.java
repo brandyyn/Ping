@@ -61,7 +61,7 @@ public class ClientSendPing implements IMessage, IMessageHandler<ClientSendPing,
         World world = player.worldObj;
         Block blockPinged = world.getBlock(message.ping.x, message.ping.y, message.ping.z);
 
-        PingEvent event = new PingEvent(world, blockPinged, message.ping);
+        PingEvent event = new PingEvent(player, blockPinged, message.ping);
         MinecraftForge.EVENT_BUS.post(event);
 
         PacketHandler.INSTANCE.sendToDimension(new ServerBroadcastPing(message.ping), ctx.getServerHandler().playerEntity.worldObj.provider.dimensionId);
