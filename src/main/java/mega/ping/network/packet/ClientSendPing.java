@@ -3,11 +3,17 @@ package mega.ping.network.packet;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+
+import mega.ping.api.events.PingEvent;
 import mega.ping.data.PingWrapper;
 import mega.ping.network.PacketHandler;
 import io.netty.buffer.ByteBuf;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.world.World;
+
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.WeakHashMap;
 
@@ -51,6 +57,13 @@ public class ClientSendPing implements IMessage, IMessageHandler<ClientSendPing,
             }
         }
         lastPingTime.put(player, System.nanoTime());
+
+        World world = player.worldObj;
+        Block blockPinged = world.getBlock(message.ping.x, message.ping.y, message.ping.z);
+
+        PingEvent event = new PingEvent(world, blockPinged, message.ping);
+        MinecraftForge.EVENT_BUS.post(event);
+
         PacketHandler.INSTANCE.sendToDimension(new ServerBroadcastPing(message.ping), ctx.getServerHandler().playerEntity.worldObj.provider.dimensionId);
         return null;
     }
