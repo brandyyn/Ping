@@ -61,6 +61,9 @@ public class RenderHandler {
         Minecraft mc = Minecraft.getMinecraft();
         Tessellator tessellator = Tessellator.instance;
 
+        GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+        GL11.glPushMatrix();
+
         int width = resolution.getScaledWidth();
         int height = resolution.getScaledHeight();
         final int mouseX = Mouse.getX() * width / mc.displayWidth;
@@ -127,6 +130,9 @@ public class RenderHandler {
         }
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_LIGHTING);
+
+        GL11.glPopMatrix();
+        GL11.glPopAttrib();
     }
 
 }
