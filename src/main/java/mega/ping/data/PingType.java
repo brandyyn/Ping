@@ -7,8 +7,8 @@ public enum PingType {
 
     BACKGROUND,
     LOOK,
-    ALERT,
     MINE,
+    ALERT,
     GOTO;
 
 
