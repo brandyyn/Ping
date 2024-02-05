@@ -24,6 +24,12 @@ public class PingConfig {
         @Config.LangKey("ping.config.general.pingDuration")
         public static int pingDuration;
 
+        @Config.Comment("Deadzone radius for ignoring a ping selection")
+        @Config.DefaultDouble(50)
+        @Config.RangeDouble(min = 0)
+        @Config.LangKey("ping.config.general.deadzone")
+        public static double deadzoneRadius;
+
         static {
             ConfigurationManager.selfInit();
         }
