@@ -7,6 +7,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import mega.ping.client.gui.CompatibleScaledResolution;
 import mega.ping.client.gui.GuiPingSelect;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -35,7 +36,7 @@ public class KeyHandler {
 
         Minecraft mc = Minecraft.getMinecraft();
 
-        if (mc.theWorld == null) {
+        if (mc.theWorld == null || mc.currentScreen != null) {
             return;
         }
 
