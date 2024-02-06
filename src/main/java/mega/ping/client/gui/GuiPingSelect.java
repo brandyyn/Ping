@@ -1,6 +1,7 @@
 package mega.ping.client.gui;
 
 import mega.ping.client.KeyHandler;
+import mega.ping.client.PingConfig;
 import mega.ping.data.PingType;
 import mega.ping.proxy.ClientProxy;
 
@@ -39,6 +40,13 @@ public class GuiPingSelect {
 
         float centerX = resolution.getScaledWidth() / 2f;
         float centerY = resolution.getScaledHeight() / 2f;
+
+        double distSquared = (mouseX - centerX) * (mouseX - centerX) + (mouseY - centerY) * (mouseY - centerY);
+        double threshold = PingConfig.General.deadzoneRadius;
+        if (distSquared < threshold) {
+            return;
+        }
+
         for (int i=0; i<numOfItems; i++) {
             PingType type = PingType.values()[i + 1];
 

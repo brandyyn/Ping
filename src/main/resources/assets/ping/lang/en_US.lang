@@ -9,6 +9,7 @@ ping.config.general.maxDistance=Maximum Distance
 ping.config.general.maxDistance.tooltip=Maximum distance a Ping can be from you and still be received
 ping.config.general.pingDuration=Ping Duration
 ping.config.general.pingDuration.tooltip=How long a Ping should remain active before disappearing (ticks)
+ping.config.general.deadzone=Deadzone radius for ignoring a ping selection
 ping.config.visual.red=Red
 ping.config.visual.green=Green
 ping.config.visual.blue=Blue
