@@ -1,0 +1,50 @@
+{
+    "goto_appear": {
+        "category": "neutral",
+        "sounds": [
+            "disappear"
+        ]
+    },
+    "look_appear": {
+        "category": "neutral",
+        "sounds": [
+            "appear"
+        ]
+    },
+    "alert_appear": {
+        "category": "neutral",
+        "sounds": [
+            "appear"
+        ]
+    },
+    "mine_appear": {
+        "category": "neutral",
+        "sounds": [
+            "appear"
+        ]
+    },
+    "goto_disappear": {
+        "category": "neutral",
+        "sounds": [
+            "disappear"
+        ]
+    },
+    "look_disappear": {
+        "category": "neutral",
+        "sounds": [
+            "disappear"
+        ]
+    },
+    "alert_disappear": {
+        "category": "neutral",
+        "sounds": [
+            "disappear"
+        ]
+    },
+    "mine_disappear": {
+        "category": "neutral",
+        "sounds": [
+            "disappear"
+        ]
+    }
+}

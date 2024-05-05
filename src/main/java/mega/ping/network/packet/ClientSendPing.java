@@ -4,7 +4,9 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-import mega.ping.api.events.PingEvent;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import mega.ping.api.event.PingEvent;
 import mega.ping.data.PingWrapper;
 import mega.ping.network.PacketHandler;
 import io.netty.buffer.ByteBuf;
@@ -21,19 +23,13 @@ import java.util.WeakHashMap;
  * Sent from the Client, handled on the Server
  * @author dmillerw
  */
+@NoArgsConstructor
+@AllArgsConstructor
 public class ClientSendPing implements IMessage, IMessageHandler<ClientSendPing, IMessage> {
-    public PingWrapper ping;
-
     private static final WeakHashMap<EntityPlayerMP, Long> lastPingTime = new WeakHashMap<>();
     private static final long PING_INTERVAL = 100000000L;
 
-    public ClientSendPing() {
-
-    }
-
-    public ClientSendPing(PingWrapper ping) {
-        this.ping = ping;
-    }
+    public PingWrapper ping;
 
     @Override
     public void toBytes(ByteBuf buf) {
@@ -59,7 +55,7 @@ public class ClientSendPing implements IMessage, IMessageHandler<ClientSendPing,
         lastPingTime.put(player, System.nanoTime());
 
         World world = player.worldObj;
-        Block blockPinged = world.getBlock(message.ping.x, message.ping.y, message.ping.z);
+        Block blockPinged = world.getBlock(message.ping.posX(), message.ping.posY(), message.ping.posZ());
 
         PingEvent event = new PingEvent(player, blockPinged, message.ping);
         MinecraftForge.EVENT_BUS.post(event);

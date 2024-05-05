@@ -4,10 +4,12 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import mega.ping.client.gui.CompatibleScaledResolution;
 import mega.ping.client.gui.GuiPingSelect;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -15,9 +17,9 @@ import org.lwjgl.input.Mouse;
 /**
  * @author dmillerw
  */
-public class KeyHandler {
-
-    public static final KeyBinding KEY_BINDING = new KeyBinding("ping.key", Keyboard.KEY_F, "key.categories.misc");
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class KeyHandler {
+    public static final KeyBinding KEY_BINDING = new KeyBinding("megaping.key", Keyboard.KEY_F, "key.categories.misc");
 
     public static void register() {
         ClientRegistry.registerKeyBinding(KEY_BINDING);

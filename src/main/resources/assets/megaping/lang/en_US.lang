@@ -1,0 +1,20 @@
+megaping.key=Ping Menu
+
+megaping.action.look=Look
+megaping.action.alert=Alert
+megaping.action.mine=Mine
+megaping.action.goto=GOTO
+
+megaping.config.general.sound=Sound
+megaping.config.general.sound.tooltip=Whether to play a sound when a Ping is received
+megaping.config.general.maxDistance=Maximum Distance
+megaping.config.general.maxDistance.tooltip=Maximum distance a Ping can be from you and still be received
+megaping.config.general.pingDuration=Ping Duration
+megaping.config.general.pingDuration.tooltip=How long a Ping should remain active before disappearing (ticks)
+megaping.config.general.deadzone=Deadzone radius for ignoring a ping selection
+
+megaping.config.visual.red=Red
+megaping.config.visual.green=Green
+megaping.config.visual.blue=Blue
+megaping.config.visual.blockOverlay=Block Overlay
+megaping.config.visual.blockOverlay.tooltip=Whether to render a colored overlay on the Pinged block

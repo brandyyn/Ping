@@ -2,7 +2,7 @@ package mega.ping.client.gui;
 
 import mega.ping.client.KeyHandler;
 import mega.ping.client.PingConfig;
-import mega.ping.data.PingType;
+import mega.ping.data.PingAction;
 import mega.ping.proxy.ClientProxy;
 
 import net.minecraft.client.Minecraft;
@@ -36,22 +36,22 @@ public class GuiPingSelect {
     public static void sendPing(int mouseX, int mouseY) {
         Minecraft mc = Minecraft.getMinecraft();
         CompatibleScaledResolution resolution = new CompatibleScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-        int numOfItems = PingType.values().length - 1;
 
         float centerX = resolution.getScaledWidth() / 2f;
         float centerY = resolution.getScaledHeight() / 2f;
 
         double distSquared = (mouseX - centerX) * (mouseX - centerX) + (mouseY - centerY) * (mouseY - centerY);
-        double threshold = PingConfig.General.deadzoneRadius;
+        double threshold = PingConfig.General.DEADZONE_RADIUS_PIXELS;
         if (distSquared < threshold) {
             return;
         }
 
+        int numOfItems = PingAction.values().length;
         for (int i=0; i<numOfItems; i++) {
-            PingType type = PingType.values()[i + 1];
+            PingAction type = PingAction.values()[i];
 
             if (isHoveringOn(mouseX, mouseY, centerX, centerY, i, numOfItems, true)) {
-                ClientProxy.sendPing(type);
+                ClientProxy.doPing(type);
                 KeyHandler.ignoreNextRelease = true;
                 return;
             }

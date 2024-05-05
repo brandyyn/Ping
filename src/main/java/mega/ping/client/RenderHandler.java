@@ -3,9 +3,9 @@ package mega.ping.client;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import lombok.val;
 import mega.ping.client.gui.GuiPingSelect;
-import mega.ping.data.PingType;
-import mega.ping.proxy.ClientProxy;
+import mega.ping.data.PingAction;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -55,9 +55,6 @@ public class RenderHandler {
     }
 
     private void renderGui(ScaledResolution resolution, double zLevel) {
-
-        int numOfItems = PingType.values().length - 1;
-
         Minecraft mc = Minecraft.getMinecraft();
         Tessellator tessellator = Tessellator.instance;
 
@@ -75,14 +72,20 @@ public class RenderHandler {
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_BLEND);
 
-        float intro = (float)((System.nanoTime() - GuiPingSelect.activatedAt) / 1000000L) / 1000F;
+        float intro = (float) ((System.nanoTime() - GuiPingSelect.activatedAt) / 1000000L) / 1000F;
         intro *= 10;
         intro = Math.min(intro, 1);
 
         OpenGlHelper.glBlendFunc(770, 771, 1, 0);
-        for (int i=0; i<numOfItems; i++) {
-            PingType type = PingType.values()[i + 1];
-            float radialPosition = (float) (((float)i / numOfItems) * Math.PI * 2);
+
+        val pingActionValues = PingAction.values();
+        val pingResourceValues = PingResource.values();
+        val length = pingActionValues.length;
+        for (int i = 0; i < length; i++) {
+            val pingAction = pingActionValues[i];
+            val pingResource = pingResourceValues[i];
+
+            float radialPosition = (float) (((float) i / length) * Math.PI * 2);
             float posSin = (float) Math.sin(radialPosition);
             float posCos = (float) Math.cos(radialPosition);
 
@@ -90,12 +93,12 @@ public class RenderHandler {
             float drawY = centerY + posSin * ITEM_SIZE * intro;
 
             float min = -ITEM_SIZE / 2f * intro;
-            float max =  ITEM_SIZE / 2f * intro;
+            float max = ITEM_SIZE / 2f * intro;
 
-            boolean mouseIn = GuiPingSelect.isHoveringOn(mouseX, mouseY, centerX, centerY, i, numOfItems, false);
+            boolean mouseIn = GuiPingSelect.isHoveringOn(mouseX, mouseY, centerX, centerY, i, length, false);
 
             if (mouseIn) {
-                String localized = I18n.format(type.langKey);
+                String localized = I18n.format(pingAction.unlocalizedName());
                 GL11.glPushMatrix();
                 GL11.glColor4f(1, 1, 1, 1);
                 mc.fontRenderer.drawString(localized,
@@ -105,27 +108,30 @@ public class RenderHandler {
                 GL11.glPopMatrix();
             }
 
-            Minecraft.getMinecraft().getTextureManager().bindTexture(PingHandler.TEXTURE);
+
+            Minecraft.getMinecraft().getTextureManager().bindTexture(pingResource.backgroundTexture());
 
             tessellator.startDrawingQuads();
             if (mouseIn) {
-                tessellator.setColorRGBA(PingConfig.Visual.red, PingConfig.Visual.green, PingConfig.Visual.blue, (int) (intro * 255));
+                tessellator.setColorRGBA(PingConfig.Visual.PING_OVERLAY_RED, PingConfig.Visual.PING_OVERLAY_GREEN, PingConfig.Visual.PING_OVERLAY_BLUE, (int) (intro * 255));
             } else {
                 tessellator.setColorRGBA_F(1, 1, 1, intro);
             }
-            tessellator.addVertexWithUV(drawX + min, drawY + max, 0, PingType.BACKGROUND.minU, PingType.BACKGROUND.maxV);
-            tessellator.addVertexWithUV(drawX + max, drawY + max, 0, PingType.BACKGROUND.maxU, PingType.BACKGROUND.maxV);
-            tessellator.addVertexWithUV(drawX + max, drawY + min, 0, PingType.BACKGROUND.maxU, PingType.BACKGROUND.minV);
-            tessellator.addVertexWithUV(drawX + min, drawY + min, 0, PingType.BACKGROUND.minU, PingType.BACKGROUND.minV);
+            tessellator.addVertexWithUV(drawX + min, drawY + max, 0, 0, 1);
+            tessellator.addVertexWithUV(drawX + max, drawY + max, 0, 1, 1);
+            tessellator.addVertexWithUV(drawX + max, drawY + min, 0, 1, 0);
+            tessellator.addVertexWithUV(drawX + min, drawY + min, 0, 0, 0);
             tessellator.draw();
+
+            Minecraft.getMinecraft().getTextureManager().bindTexture(pingResource.foregroundTexture());
 
             // Icon
             tessellator.setColorOpaque_F(1, 1, 1);
             tessellator.startDrawingQuads();
-            tessellator.addVertexWithUV(drawX + min, drawY + max, 0, type.minU, type.maxV);
-            tessellator.addVertexWithUV(drawX + max, drawY + max, 0, type.maxU, type.maxV);
-            tessellator.addVertexWithUV(drawX + max, drawY + min, 0, type.maxU, type.minV);
-            tessellator.addVertexWithUV(drawX + min, drawY + min, 0, type.minU, type.minV);
+            tessellator.addVertexWithUV(drawX + min, drawY + max, 0, 0, 1);
+            tessellator.addVertexWithUV(drawX + max, drawY + max, 0, 1, 1);
+            tessellator.addVertexWithUV(drawX + max, drawY + min, 0, 1, 0);
+            tessellator.addVertexWithUV(drawX + min, drawY + min, 0, 0, 0);
             tessellator.draw();
         }
         GL11.glDisable(GL11.GL_BLEND);
