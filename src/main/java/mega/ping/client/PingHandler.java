@@ -39,7 +39,6 @@ import net.minecraft.client.renderer.culling.Frustrum;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -144,8 +143,13 @@ public class PingHandler {
                 double pingX = ping.screenX;
                 double pingY = ping.screenY;
 
-                pingX -= width / 2;
-                pingY -= height / 2;
+                pingX -= width / 2f;
+                pingY -= height / 2f;
+
+                if (ping.behind) {
+                    pingX = -pingX;
+                    pingY = -pingY;
+                }
 
                 double angle = Math.atan2(pingY, pingX);
                 angle += (Math.toRadians(90));
@@ -322,7 +326,7 @@ public class PingHandler {
         if (GLU.gluProject((float)px, (float)py, (float)pz, modelview, projection, viewport, screenCoords)) {
             ping.screenX = screenCoords.get(0);
             ping.screenY = screenCoords.get(1);
-            //TODO Rotation sometimes fucks this up
+            ping.behind = screenCoords.get(2) > 1;
         }
     }
 

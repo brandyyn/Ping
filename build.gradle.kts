@@ -5,11 +5,6 @@ plugins {
 group = "mega"
 
 minecraft_fp {
-//    java {
-//        compatibility = legacy //Convention
-//        version       = JavaVersion.VERSION_XYZ //Convention, determined by compatibility
-//    }
-
     mod {
         modid = "megaping"
         name = "MEGA Ping"

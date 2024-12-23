@@ -52,6 +52,7 @@ public class PingWrapper {
 
     public float screenX;
     public float screenY;
+    public boolean behind;
 
     public int animationTimer = 20;
     public int timer;
@@ -65,7 +66,7 @@ public class PingWrapper {
     }
 
     public AxisAlignedBB getAABB() {
-        return AxisAlignedBB.getBoundingBox(x + 0.5, y + 0.5, z + 0.5, x + 0.5, y + 0.5, z + 0.5);
+        return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
     }
 
     public void writeToBuffer(ByteBuf buffer) {
