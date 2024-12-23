@@ -81,6 +81,8 @@ public class KeyHandler {
                 ignoreNextRelease = false;
                 GuiPingSelect.deactivate();
             }
+        } else if (keyPressed) {
+            GuiPingSelect.forceUnGrab();
         }
         lastKeyState = keyPressed;
     }

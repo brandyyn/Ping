@@ -27,6 +27,7 @@ import mega.ping.client.KeyHandler;
 import mega.ping.client.PingConfig;
 import mega.ping.data.PingType;
 import mega.ping.proxy.ClientProxy;
+import org.lwjgl.input.Mouse;
 
 import net.minecraft.client.Minecraft;
 
@@ -45,6 +46,12 @@ public class GuiPingSelect {
         mc.mouseHelper.ungrabMouseCursor();
         active = true;
         activatedAt = System.nanoTime();
+    }
+
+    public static void forceUnGrab() {
+        Minecraft mc = Minecraft.getMinecraft();
+        mc.inGameHasFocus = false;
+        Mouse.setGrabbed(false);
     }
 
     public static void deactivate() {
