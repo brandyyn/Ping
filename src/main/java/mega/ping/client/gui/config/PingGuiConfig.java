@@ -14,6 +14,6 @@ import net.minecraft.client.gui.GuiScreen;
  */
 public class PingGuiConfig extends SimpleGuiConfig {
     public PingGuiConfig(GuiScreen parent) throws ConfigException {
-        super(parent, Tags.MODID, Tags.MODNAME, PingConfig.General.class, PingConfig.Visual.class);
+        super(parent, Tags.MOD_ID, Tags.MOD_NAME, PingConfig.General.class, PingConfig.Visual.class);
     }
 }

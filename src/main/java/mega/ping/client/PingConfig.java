@@ -5,7 +5,7 @@ import com.falsepattern.lib.config.ConfigurationManager;
 import mega.ping.Tags;
 
 public class PingConfig {
-    @Config(modid = Tags.MODID)
+    @Config(modid = Tags.MOD_ID)
     public static class General {
         @Config.Comment("Whether to play a sound when a Ping is received")
         @Config.DefaultBoolean(true)
@@ -39,7 +39,7 @@ public class PingConfig {
         }
     }
 
-    @Config(modid = Tags.MODID,
+    @Config(modid = Tags.MOD_ID,
             category = "visual")
     public static class Visual {
         @Config.DefaultInt(0)
