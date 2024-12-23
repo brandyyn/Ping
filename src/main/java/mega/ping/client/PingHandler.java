@@ -130,7 +130,6 @@ public class PingHandler {
 
                 int width = (int) (mc.displayWidth * ratio);
                 int height = (int) (mc.displayHeight * ratio);
-                System.out.print(height);
 
                 int x1 = -(width / 2) + 32;
                 int y1 = -(height / 2) + 32;
@@ -172,10 +171,6 @@ public class PingHandler {
 
                 pingX += width / 2f;
                 pingY += height / 2f;
-
-                System.out.print(" ");
-                System.out.print(pingY);
-                System.out.println();
 
                 Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
 
