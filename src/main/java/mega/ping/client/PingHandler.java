@@ -117,23 +117,28 @@ public class PingHandler {
 
     @SubscribeEvent
     public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
-        Minecraft mc = Minecraft.getMinecraft();
         if (event.type == RenderGameOverlayEvent.ElementType.TEXT) {
+            boolean startedDrawing = false;
+            Minecraft mc = Minecraft.getMinecraft();
+            Tessellator tessellator = Tessellator.instance;
             for (PingWrapper ping : activePings) {
                 if (!ping.isOffscreen) {
                     continue;
                 }
 
-                int width = mc.displayWidth;
-                int height = mc.displayHeight;
+                double ratio = 2 / (mc.displayWidth / event.resolution.getScaledWidth_double());
+
+                int width = (int) (mc.displayWidth * ratio);
+                int height = (int) (mc.displayHeight * ratio);
+                System.out.print(height);
 
                 int x1 = -(width / 2) + 32;
                 int y1 = -(height / 2) + 32;
-                int x2 = (width / 2) - 32;
-                int y2 = (height / 2) - 32;
+                int x2 = ((width / 2) - 32);
+                int y2 = ((height / 2) - 32);
 
-                double pingX = ping.screenX;
-                double pingY = ping.screenY;
+                double pingX = ping.screenX * ratio;
+                double pingY = ping.screenY * ratio;
 
                 pingX -= width / 2f;
                 pingY -= height / 2f;
@@ -168,38 +173,38 @@ public class PingHandler {
                 pingX += width / 2f;
                 pingY += height / 2f;
 
-                GL11.glPushMatrix();
+                System.out.print(" ");
+                System.out.print(pingY);
+                System.out.println();
 
                 Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
-
-                Tessellator tessellator = Tessellator.instance;
-
-                tessellator.setTranslation(pingX / 2, pingY / 2, 0);
 
                 float min = -8;
                 float max =  8;
 
                 // Background
-                tessellator.startDrawingQuads();
+                if (!startedDrawing) {
+                    tessellator.startDrawingQuads();
+                    startedDrawing = true;
+                }
+                tessellator.setTranslation(pingX / 2, pingY / 2, 0);
                 tessellator.setColorOpaque_I(ping.color);
                 tessellator.addVertexWithUV(min, max, 0, PingType.BACKGROUND.minU, PingType.BACKGROUND.maxV);
                 tessellator.addVertexWithUV(max, max, 0, PingType.BACKGROUND.maxU, PingType.BACKGROUND.maxV);
                 tessellator.addVertexWithUV(max, min, 0, PingType.BACKGROUND.maxU, PingType.BACKGROUND.minV);
                 tessellator.addVertexWithUV(min, min, 0, PingType.BACKGROUND.minU, PingType.BACKGROUND.minV);
-                tessellator.draw();
 
                 // Icon
                 tessellator.setColorOpaque_F(1, 1, 1);
-                tessellator.startDrawingQuads();
                 tessellator.addVertexWithUV(min, max, 0, ping.type.minU, ping.type.maxV);
                 tessellator.addVertexWithUV(max, max, 0, ping.type.maxU, ping.type.maxV);
                 tessellator.addVertexWithUV(max, min, 0, ping.type.maxU, ping.type.minV);
                 tessellator.addVertexWithUV(min, min, 0, ping.type.minU, ping.type.minV);
+
+            }
+            if (startedDrawing) {
                 tessellator.draw();
-
                 tessellator.setTranslation(0, 0, 0);
-
-                GL11.glPopMatrix();
             }
         }
     }
