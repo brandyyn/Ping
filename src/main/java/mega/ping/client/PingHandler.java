@@ -298,7 +298,7 @@ public class PingHandler {
 
         Tessellator.instance.setTranslation(x + 0.5, y + 0.5, z + 0.5);
 
-        if (ping.type == PingType.GOTO && PingConfig.General.EnableBeam) {
+        if (ping.type == PingType.GOTO && PingConfig.General.enableBeam) {
             this.renderBeamShaft(mc.theWorld, x, y, z, partialTicks);
         }
 

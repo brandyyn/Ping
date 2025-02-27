@@ -55,8 +55,8 @@ public class PingConfig {
 
         @Config.Comment("Enable a beacon beam when using the goto ping")
         @Config.DefaultBoolean(false)
-        @Config.LangKey("ping.config.general.EnableBeam")
-        public static boolean EnableBeam;
+        @Config.LangKey("ping.config.general.enableBeam")
+        public static boolean enableBeam;
 
         static {
             ConfigurationManager.selfInit();
